@@ -1,0 +1,25 @@
+{
+  "name": "abcdpractice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm start\"",
+    "start": "node backend/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sredhu37/abcdpractice.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sredhu37/abcdpractice/issues"
+  },
+  "homepage": "https://github.com/sredhu37/abcdpractice#readme",
+  "devDependencies": {
+    "concurrently": "^5.2.0"
+  }
+}
