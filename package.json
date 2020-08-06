@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm start\"",
     "start": "node backend/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -19,7 +18,5 @@
     "url": "https://github.com/sredhu37/abcdpractice/issues"
   },
   "homepage": "https://github.com/sredhu37/abcdpractice#readme",
-  "devDependencies": {
-    "concurrently": "^5.2.0"
-  }
+  "devDependencies": {}
 }

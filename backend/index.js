@@ -66,7 +66,7 @@ if (MONGO_URI && (MONGO_URI !== 'undefined')) {
 app.get('/', (req, res) => {
   if (process.env.NODE_ENV === 'PROD') {
     res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
-  } else {  // DEV environment
+  } else { // DEV environment
     res.json({ msg: 'DEV Environment: Backend seems to be running fine. Yay!' });
   }
 });
