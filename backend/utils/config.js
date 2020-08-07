@@ -30,18 +30,18 @@ if (
 }
 
 if (
-  exists(process.env.HOST) &&
-  exists(process.env.PORT) &&
-  exists(process.env.CLIENT_URL) &&
-  exists(process.env.NODE_ENV)
+  exists(process.env.HOST)
+  && exists(process.env.PORT)
+  && exists(process.env.CLIENT_URL)
+  && exists(process.env.NODE_ENV)
 ) {
   const otherObj = {
     HOST: process.env.HOST || 'http://127.0.0.1',
     PORT: process.env.PORT || 3000,
     CLIENT_URL: process.env.CLIENT_URL,
-    NODE_ENV: process.env.NODE_ENV
+    NODE_ENV: process.env.NODE_ENV,
   };
-  
+
   resultObj.other = otherObj;
 } else {
   logger.error('Issue with OTHER env vars! Please inform Administrator immediately!');
