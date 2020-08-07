@@ -112,7 +112,7 @@ export const requestUploadQuestions = () => {
       msgBoxVariant = 'success';
 
       dispatch(deleteAll());
-      dispatch(resetAll());
+      // dispatch(resetAll());
       dispatch(setActiveTab('question1'))
     } catch(error) {
       msgBoxTxt = error.toString();

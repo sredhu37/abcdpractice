@@ -83,13 +83,13 @@ const UploadQuestions = () => {
   };
 
   const handleDeleteLastQuestion = () => {
-    if(questions.length > 1) {
+    if (questions.length > 1) {
       dispatch(deleteLastQuestion());
 
       dispatch(setActiveTab(`question${questions.length - 1}`));
     } else {
       dispatch(deleteAll());
-      dispatch(resetAll());
+      // dispatch(resetAll());
 
       dispatch(setActiveTab('question1'));
     }
