@@ -19,11 +19,6 @@ const cookieObject = {
   keys: ['jhakhaas-key1', 'jhakhaas-key2'],
 };
 
-// if(NODE_ENV === 'PROD') {
-//   cookieObject.sameSite = 'none',
-//   cookieObject.secure = true,
-// }
-
 const app = express();
 app.use(helmet()); // good for security
 app.use(cors({ credentials: true, origin: config.other.CLIENT_URL }));
