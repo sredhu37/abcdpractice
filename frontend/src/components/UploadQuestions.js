@@ -11,7 +11,9 @@ import {
   addNewQuestion,
   changeOptionStatement,
   changeAnswersValue,
-  deleteLastQuestion
+  deleteLastQuestion,
+  deleteAll,
+  resetAll,
 } from '../redux/actions/uploadQuestionsAction';
 import { showPrompt } from '../redux/actions/promptAction';
 import { showMessageBox } from '../redux/actions/messageBoxAction';
@@ -85,6 +87,11 @@ const UploadQuestions = () => {
       dispatch(deleteLastQuestion());
 
       dispatch(setActiveTab(`question${questions.length - 1}`));
+    } else {
+      dispatch(deleteAll());
+      dispatch(resetAll());
+
+      dispatch(setActiveTab('question1'));
     }
   };
 

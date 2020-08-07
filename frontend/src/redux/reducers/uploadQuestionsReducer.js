@@ -7,6 +7,7 @@ import {
   UPLOAD_QUESTION_CHANGE_CLASS_VALUE,
   UPLOAD_QUESTION_CHANGE_SUBJECT_VALUE,
   UPLOAD_QUESTION_CHANGE_CHAPTER_VALUE,
+  UPLOAD_QUESTION_DELETE_ALL,
   UPLOAD_QUESTION_RESET_ALL,
 } from '../constants';
 
@@ -146,10 +147,17 @@ const uploadQuestionsReducer = (state = initialState, action) => {
         chapter: action.payload,
       };
 
+    case UPLOAD_QUESTION_DELETE_ALL:
+      return {
+        ...initialState,
+        questions: []
+      };
+    
     case UPLOAD_QUESTION_RESET_ALL:
       return {
         ...initialState
       };
+
     default:
       return state;
   }

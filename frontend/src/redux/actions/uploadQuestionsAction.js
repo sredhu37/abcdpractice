@@ -8,6 +8,7 @@ import {
   UPLOAD_QUESTION_CHANGE_CLASS_VALUE,
   UPLOAD_QUESTION_CHANGE_SUBJECT_VALUE,
   UPLOAD_QUESTION_CHANGE_CHAPTER_VALUE,
+  UPLOAD_QUESTION_DELETE_ALL,
   UPLOAD_QUESTION_RESET_ALL,
 } from '../constants';
 import { startLoading, stopLoading } from './loadingAction';
@@ -80,6 +81,12 @@ export const changeChapterValue = (chapter) => {
   };
 };
 
+export const deleteAll = () => {
+  return {
+    type: UPLOAD_QUESTION_DELETE_ALL
+  }
+};
+
 export const resetAll = () => {
   return {
     type: UPLOAD_QUESTION_RESET_ALL
@@ -104,6 +111,7 @@ export const requestUploadQuestions = () => {
       msgBoxTxt = result.data.toString();
       msgBoxVariant = 'success';
 
+      dispatch(deleteAll());
       dispatch(resetAll());
       dispatch(setActiveTab('question1'))
     } catch(error) {
