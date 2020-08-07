@@ -35,6 +35,10 @@ hr {
   border: 1px solid #343A40;
 }
 
+.accordian {
+  cursor: pointer;
+}
+
 Button {
   margin: 10px;
 }

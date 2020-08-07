@@ -25,7 +25,7 @@ const Home = (props) => {
           <Col xs={10} sm={6}>
             <Accordion defaultActiveKey="0" className="homeAccordian">
               <Card>
-                <Accordion.Toggle as={Card.Header} eventKey="0">
+                <Accordion.Toggle as={Card.Header} eventKey="0" className='accordian'>
                   What is this app about?
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="0">
@@ -33,23 +33,23 @@ const Home = (props) => {
                     <p>
                       We believe that improving oneself is a continuous process.
                       Hence, we have come up with a simple concept to improve one's problem solving skill.
-                      That is just solve <b>FIVE QUESTIONS PER DAY</b>.
+                      That is, just solve <b>FIVE QUESTIONS PER DAY</b>.
                     </p>
                     <p>
-                      By following this principle, you will not feel overwhelmed and you will learn something everyday.
+                      By following this principle, you will not feel overwhelmed and you will learn something new everyday.
                     </p>
                   </Card.Body>
                 </Accordion.Collapse>
               </Card>
               <Card>
-                <Accordion.Toggle as={Card.Header} eventKey="2">
+                <Accordion.Toggle as={Card.Header} eventKey="2" className='accordian'>
                   How to use this app?
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="2">
                   <Card.Body>
                     <ul>
                       <li>
-                        To login you need to have a gmail account.
+                        To login, you need to have a gmail account.
                       </li>
                       <li>
                         You can click on the <b>Question</b> tab to attempt today's questions.
@@ -68,7 +68,7 @@ const Home = (props) => {
                 </Accordion.Collapse>
               </Card>
               <Card>
-                <Accordion.Toggle as={Card.Header} eventKey="3">
+                <Accordion.Toggle as={Card.Header} eventKey="3" className='accordian'>
                   How to contact the developer?
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="3">
@@ -95,7 +95,7 @@ const Home = (props) => {
                 </Accordion.Collapse>
               </Card>
               <Card>
-                <Accordion.Toggle as={Card.Header} eventKey="4">
+                <Accordion.Toggle as={Card.Header} eventKey="4" className='accordian'>
                   In the end, I would like to say:
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="4">
