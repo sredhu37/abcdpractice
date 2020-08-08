@@ -108,7 +108,7 @@ export const requestGetTodaysQuestions = () => {
                 state: que.state
               };
 
-              questionObj.answer = que.state === 'ANSWER_VIEWED' ? 
+              questionObj.answer = que.state === 'ANSWER_VIEWED' || que.state === 'CORRECT' ? 
                 que.answer :
                 {
                   a: false,

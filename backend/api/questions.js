@@ -168,7 +168,7 @@ questionsRouter.get('/', verifyAuthToken, async (req, res) => {
             state: userCurrentQue.state,
           };
 
-          if (userCurrentQue.state !== 'ANSWER_VIEWED') {
+          if (userCurrentQue.state !== 'ANSWER_VIEWED' && userCurrentQue.state !== 'CORRECT') {
             delete modifiedQuestion.answer;
           }
 

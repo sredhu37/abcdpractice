@@ -81,9 +81,9 @@ const QuestionForm = () => {
                 aria-hidden="true"
               /></Button>
               : <Button
-                variant={question.state === 'ANSWER_VIEWED' ? "secondary" : "success"}
+                variant={question.state === 'ANSWER_VIEWED' || question.state === 'CORRECT' ? "secondary" : "success"}
                 onClick={handleSubmitAnswer}
-                disabled={question.state === 'ANSWER_VIEWED'}
+                disabled={question.state === 'ANSWER_VIEWED' || question.state === 'CORRECT'}
                 >Submit</Button>
             }
             {loading
@@ -95,9 +95,9 @@ const QuestionForm = () => {
                 aria-hidden="true"
               /></Button>
               : <Button
-                variant={question.state === 'ANSWER_VIEWED' ? "secondary" : "danger"}
+                variant={question.state === 'ANSWER_VIEWED' || question.state === 'CORRECT' ? "secondary" : "danger"}
                 onClick={handleShowAnswer}
-                disabled={question.state === 'ANSWER_VIEWED'}
+                disabled={question.state === 'ANSWER_VIEWED' || question.state === 'CORRECT'}
               >Show Answer</Button>
             }
             {loading
