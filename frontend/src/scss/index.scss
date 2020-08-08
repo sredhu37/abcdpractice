@@ -1,0 +1,62 @@
+// Import from other files
+
+// styles
+body, html {
+  text-align: center;
+  color:#757576;
+  height: 100%;
+  margin: 0;
+
+  background-color: #F9FCFC ;
+  // background-image: url("../static/bg_login3.jpg");
+
+  // /* Center and scale the image nicely */
+  // background-position: center;
+  // background-attachment: fixed;
+  // // background-repeat: no-repeat;
+  // background-size: cover;
+}
+
+hr {
+  border: 1px solid black;
+}
+
+.homeAccordian {
+  margin-top: 5%;
+  text-align: justify;
+}
+
+.personPic {
+  height: 50px;
+  width: 50px;
+  margin-right: 10px;
+  &:hover {
+    cursor: pointer;
+    border: 1px solid #343A40;
+  }
+}
+
+.logoPic {
+  height: 50px;
+  width: 120px;
+  margin-right: 10px;
+  &:hover {
+    cursor: pointer;
+    border: 1px solid #343A40;
+  }
+}
+
+.accordian {
+  cursor: pointer;
+}
+
+Button {
+  margin: 10px;
+}
+
+@import 'MessageBox';
+@import 'Question';
+@import 'Profile';
+@import 'Dashboard';
+@import 'UploadQuestions';
+@import 'Prompt';

@@ -1,0 +1,30 @@
+.containerColumn {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 20px;
+
+    background: white;
+    text-align: center;
+    // height: 80vh;
+}
+
+.questionPageContainer {
+    margin: 30px 10px;
+}
+
+.cardQuestion {
+    margin-bottom: 30px;
+    box-shadow: 3px 3px 3px #CCCECF;
+    background-image: url("../static/card-bg.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.questionJumbotron {
+    background-color: transparent;
+}
+
+.previewCardImage {
+    height: 50px;
+    width: 50px;
+}
