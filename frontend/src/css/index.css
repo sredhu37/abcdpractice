@@ -77,6 +77,10 @@ Button {
   width: 50px;
 }
 
+.correctAnswerRow {
+  background: #50E570;
+}
+
 .profileCard {
   margin: 5%;
   padding: 5%;

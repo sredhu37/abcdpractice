@@ -13,7 +13,7 @@ import {
   changeAnswersValue,
   deleteLastQuestion,
   deleteAll,
-  resetAll,
+  // resetAll,
 } from '../redux/actions/uploadQuestionsAction';
 import { showPrompt } from '../redux/actions/promptAction';
 import { showMessageBox } from '../redux/actions/messageBoxAction';

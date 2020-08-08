@@ -25,7 +25,7 @@ const userSchema = new Schema({
         state: {
           type: String,
           default: 'UNATTEMPTED',
-          enum: ['UNATTEMPTED', 'CORRECT', 'INCORRECT'],
+          enum: ['UNATTEMPTED', 'CORRECT', 'INCORRECT', 'ANSWER_VIEWED'],
         },
         dateAsked: { type: String, default: '' },
       },
