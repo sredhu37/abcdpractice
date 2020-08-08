@@ -6,6 +6,7 @@ import {
   QUESTION_IS_READY,
   QUESTION_INITIALIZE_QUESTIONS,
   QUESTION_CHANGE_USERSANSWER,
+  QUESTION_CHANGE_ANSWER,
 } from '../constants';
 
 const getUpdateArray = (arr, indexToUpdate, newValue) => {
@@ -28,6 +29,12 @@ const initialState = {
       c: false,
       d: false
     },
+    answer: {
+      a: false,
+      b: false,
+      c: false,
+      d: false
+    },
     state: 'UNATTEMPTED',
   }],
   activeTab: 'question1',
@@ -38,6 +45,7 @@ const initialState = {
 };
 
 const questionReducer = (state = initialState, action) => {
+
   switch(action.type) {
     case QUESTION_ACTIVE_TAB:   // used in uploadQuestions component
       return {
@@ -70,9 +78,10 @@ const questionReducer = (state = initialState, action) => {
         questions: action.payload
       };
     case QUESTION_CHANGE_USERSANSWER:
-      const { questionId, option, optionValue } = action.payload;
-      const index = state.questions.findIndex(que => que._id === questionId);
-      const question = state.questions.find(que => que._id === questionId);
+      const questionId2 = action.payload.questionId;
+      const { option, optionValue } = action.payload;
+      const index = state.questions.findIndex(que => que._id === questionId2);
+      const question = state.questions.find(que => que._id === questionId2);
       const newQuestionObj = {
         ...question,
         answerByUser: {
@@ -84,6 +93,23 @@ const questionReducer = (state = initialState, action) => {
       return {
         ...state,
         questions: getUpdateArray(state.questions, index, newQuestionObj)
+      };
+
+    case QUESTION_CHANGE_ANSWER:
+      const status = action.payload.state;
+      const { questionId, answer } = action.payload;
+      const indexToUpdate = state.questions.findIndex(que => que._id === questionId);
+      const questionToUpdate = state.questions.find(que => que._id === questionId);
+
+      const updatedQuestionObj = {
+        ...questionToUpdate,
+        answer,
+        state: status
+      };
+
+      return {
+        ...state,
+        questions: getUpdateArray(state.questions, indexToUpdate, updatedQuestionObj)
       };
     default:
       return state;

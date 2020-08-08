@@ -7,9 +7,11 @@ import {
   QUESTION_IS_READY,
   QUESTION_INITIALIZE_QUESTIONS,
   QUESTION_CHANGE_USERSANSWER,
+  QUESTION_CHANGE_ANSWER,
 } from '../constants';
 import { startLoading, stopLoading } from './loadingAction';
 import { showMessageBox } from './messageBoxAction';
+import { hidePrompt } from './promptAction';
 
 
 export const setActiveTab = (tabName) => {
@@ -51,6 +53,17 @@ export const changeUsersAnswer = (questionId, option, optionValue) => {
   };
 };
 
+export const changeAnswer = (questionId, answer, state) => {
+  return {
+    type: QUESTION_CHANGE_ANSWER,
+    payload: {
+      questionId,
+      answer,
+      state
+    }
+  };
+};
+
 export const setIsQuestionReady = (isReady) => {
   return {
     type: QUESTION_IS_READY,
@@ -81,8 +94,8 @@ export const requestGetTodaysQuestions = () => {
       switch (result.status) {
         case 200:
           if (result.data.length) {
-            const questions = result.data.map(que => (
-              {
+            const questions = result.data.map(que => {
+              const questionObj = {
                 _id: que._id,
                 problemStatement: que.problemStatement,
                 options: que.options,
@@ -93,8 +106,19 @@ export const requestGetTodaysQuestions = () => {
                   d: false
                 },
                 state: que.state
-              }
-            ));
+              };
+
+              questionObj.answer = que.state === 'ANSWER_VIEWED' ? 
+                que.answer :
+                {
+                  a: false,
+                  b: false,
+                  c: false,
+                  d: false
+                };
+
+              return questionObj;
+            });
 
             dispatch(initializeQuestions(questions));
             dispatch(setIsQuestionReady(true));
@@ -142,6 +166,35 @@ export const requestSubmitAnswer = (questionId, usersAnswer) => {
       dispatch(showMessageBox(error.toString(), 'danger'));
     } finally {
       dispatch(stopLoading());
+    }
+  };
+};
+
+export const requestGetAnswer = (questionId) => {
+  return async(dispatch, getState) => {
+    try {
+      const userId = getState().user.myUser._id;
+
+      const requestObject = {
+        userId,
+        questionId
+      };
+
+      dispatch(startLoading());
+      const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/questions/get-answer`, { params: requestObject });
+      
+      switch(response.status) {
+        case 200:
+          dispatch(changeAnswer(questionId, response.data.answer, response.data.state));
+          break;
+        default:
+          throw new Error(`Unhandled status code while submitting answer!`);
+      }
+    } catch(error) {
+      dispatch(showMessageBox(error.toString(), 'danger'));
+    } finally {
+      dispatch(stopLoading());
+      dispatch(hidePrompt());
     }
   };
 };

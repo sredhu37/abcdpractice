@@ -158,16 +158,21 @@ questionsRouter.get('/', verifyAuthToken, async (req, res) => {
         subject,
         chapter,
         _id: { $in: todaysQuestionsAttemptedIdList },
-      }, '_id problemStatement options');
+      }, '_id problemStatement options answer');
 
       if (askedQuestions.length) {
         const modifiedAskedQuestions = askedQuestions.map((que) => {
           const userCurrentQue = todaysQuestions.find((askedQue) => askedQue._id.toString().trim() === que._id.toString().trim());
-          console.log('Sunny: ', userCurrentQue);
-          return {
+          const modifiedQuestion = {
             ...que._doc,
             state: userCurrentQue.state,
           };
+
+          if (userCurrentQue.state !== 'ANSWER_VIEWED') {
+            delete modifiedQuestion.answer;
+          }
+
+          return modifiedQuestion;
         });
         logger.info('Sending already asked questions: ', modifiedAskedQuestions);
         res.send(modifiedAskedQuestions);
@@ -275,6 +280,54 @@ questionsRouter.post('/submit', verifyAuthToken, async (req, res) => {
     }
   } catch (error) {
     res.status(500).send(error.toString());
+  }
+});
+
+/**
+ * Get answer for a question
+ * Acceptable body
+ * {
+ *    userId: String,
+ *    questionId: String
+ * }
+ */
+questionsRouter.get('/get-answer', async (req, res) => {
+  const { questionId, userId } = req.query;
+
+  if (utils.exists(questionId) && utils.exists(userId)) {
+    try {
+      // Get user from DB
+      const user = await UserModel.findById(userId);
+      // Get question from DB
+      const question = await QuestionModel.findById(questionId);
+
+      // Update state='ANSWER_VIEWED' for the question in user.questionsAttempted
+      const questionInUsersTable = user.questionsAttempted.find((que) => que._id.toString().trim() === questionId);
+      const indexToUpdate = user.questionsAttempted.findIndex((que) => que._id.toString().trim() === questionId);
+      const updatedQuestionInUsersTable = {
+        ...questionInUsersTable._doc,
+        state: (questionInUsersTable.state === 'CORRECT') ? 'CORRECT' : 'ANSWER_VIEWED',
+      };
+
+      // Update in Users table
+      await UserModel.findByIdAndUpdate({ _id: userId }, {
+        ...user._doc,
+        questionsAttempted: getUpdatedArray(user.questionsAttempted, indexToUpdate, updatedQuestionInUsersTable)
+      });
+
+      const returnObject = {
+        questionId,
+        answer: question.answer,
+        state: 'ANSWER_VIEWED',
+      };
+
+      res.send(returnObject);
+    } catch (error) {
+      logger.error(error);
+      res.status(500).send(error.toString());
+    }
+  } else {
+    res.sendStatus(400);
   }
 });
 

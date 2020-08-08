@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import greenTickIcon from '../../static/green-tick.png';
 import redCrossIcon from '../../static/red-cross.png';
 import yellowQuestionMarkIcon from '../../static/question-mark.png';
+import grayIcon from '../../static/prohibited.png';
 
 const QuestionsPreviewCards = () => {
   const { questions, isQuestionReady } = useSelector(state => state.question);
@@ -17,11 +18,13 @@ const QuestionsPreviewCards = () => {
             <Card.Title>
               Que {index+1}{' '}
               {
-                que.state === 'UNATTEMPTED' ? 
+                que.state === 'UNATTEMPTED' ?
                   <Image src={yellowQuestionMarkIcon} roundedCircle className="previewCardImage" /> :
                   (que.state === 'CORRECT' ? 
                     <Image src={greenTickIcon} roundedCircle className="previewCardImage" /> :
-                    <Image src={redCrossIcon} roundedCircle className="previewCardImage" />
+                    (que.state === 'INCORRECT') ?
+                      <Image src={redCrossIcon} roundedCircle className="previewCardImage" /> :
+                      <Image src={grayIcon} roundedCircle className="previewCardImage" />
                   )
               }
             </Card.Title>
