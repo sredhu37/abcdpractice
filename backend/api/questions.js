@@ -312,7 +312,7 @@ questionsRouter.get('/get-answer', async (req, res) => {
       // Update in Users table
       await UserModel.findByIdAndUpdate({ _id: userId }, {
         ...user._doc,
-        questionsAttempted: getUpdatedArray(user.questionsAttempted, indexToUpdate, updatedQuestionInUsersTable)
+        questionsAttempted: getUpdatedArray(user.questionsAttempted, indexToUpdate, updatedQuestionInUsersTable),
       });
 
       const returnObject = {
