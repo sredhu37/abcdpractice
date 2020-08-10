@@ -41,7 +41,6 @@ const QuestionForm = () => {
   };
 
   const onMessageBoxClose = () => {
-    console.log(`MessageBoxVariant: `, messageBoxVariant);
     if (messageBoxVariant.toString().trim() === 'success') {
       history.push(`/questions`);
     }
