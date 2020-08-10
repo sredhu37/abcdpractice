@@ -22,7 +22,7 @@ hr {
 }
 .personPic:hover {
   cursor: pointer;
-  border: 1px solid #343A40;
+  border: 1px solid #218838;
 }
 
 .logoPic {
@@ -32,7 +32,7 @@ hr {
 }
 .logoPic:hover {
   cursor: pointer;
-  border: 1px solid #343A40;
+  border: 1px solid #218838;
 }
 
 .accordian {
@@ -41,6 +41,17 @@ hr {
 
 Button {
   margin: 10px;
+}
+
+.color-navbar {
+  background-color: #218838;
+}
+
+.color-nav {
+  color: #DAEBDE;
+}
+.color-nav:hover {
+  color: #daebde9c;
 }
 
 .MessageBox {
@@ -78,7 +89,7 @@ Button {
 }
 
 .correctAnswerRow {
-  background: #50E570;
+  background: #218838;
 }
 
 .profileCard {

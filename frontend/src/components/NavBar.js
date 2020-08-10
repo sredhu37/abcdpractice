@@ -29,7 +29,7 @@ const NavBar = () => {
 
   if(isLoggedIn) {
     return (
-      <Navbar bg="dark" variant="dark" expand="lg">
+      <Navbar className="color-navbar" expand="lg">
         <Link to="/">
           <Navbar.Brand>
             <Image
@@ -42,9 +42,9 @@ const NavBar = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link as={Link} to='/questions'>Questions</Nav.Link>
-            <Nav.Link as={Link} to='/dashboard'>Dashboard</Nav.Link>
-            <Nav.Link as={Link} to='/upload-questions'>Upload Questions</Nav.Link>
+            <Nav.Link as={Link} to='/questions'><span className="color-nav">Questions</span></Nav.Link>
+            <Nav.Link as={Link} to='/dashboard'><span className="color-nav">Dashboard</span></Nav.Link>
+            <Nav.Link as={Link} to='/upload-questions'><span className="color-nav">Upload Questions</span></Nav.Link>
           </Nav>
           <Form inline>
             <Nav className="mr-auto">
@@ -75,7 +75,7 @@ const NavBar = () => {
     );
   } else {
     return (
-      <Navbar bg="dark" variant="dark" expand="lg">
+      <Navbar className="color-navbar" expand="lg">
         <Link to="/">
           <Navbar.Brand>
             <Image
@@ -88,14 +88,14 @@ const NavBar = () => {
         <Form inline>
           <Nav className="mr-auto">
             {loading 
-              ? <Button variant="success" disabled><Spinner
+              ? <Button variant="warning" disabled><Spinner
                 as="span"
                 animation="border"
                 size="sm"
                 role="status"
                 aria-hidden="true"
               /></Button>
-              : <Button variant="success" onClick={handleLogin}>Login</Button>
+              : <Button variant="warning" onClick={handleLogin}>Login</Button>
             }
           </Nav>
         </Form>
