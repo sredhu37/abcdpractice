@@ -78,6 +78,9 @@ Button {
   background-size: contain;
   background-repeat: no-repeat;
 }
+.cardQuestion:hover {
+  cursor: pointer;
+}
 
 .questionJumbotron {
   background-color: transparent;
