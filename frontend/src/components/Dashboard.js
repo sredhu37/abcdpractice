@@ -37,7 +37,7 @@ const Dashboard = () => {
   }
 
   const loadMyData = () => {
-    const alreadyInTopLeaders = topLeaders.find(user => user._id === myUser._id);
+    const alreadyInTopLeaders = topLeaders.find(user => user._id.toString().trim() === myUser._id.toString().trim());
 
     if(alreadyInTopLeaders) {
       return null;

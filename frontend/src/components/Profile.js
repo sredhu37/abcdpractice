@@ -17,9 +17,9 @@ const Profile = () => {
             <Card className="profileCard">
               <Card.Img variant="top" src={ myUser.pictureUrl } className="profileImage" />
               <Card.Body>
-                <Card.Title>{ myUser.email }</Card.Title>
+                <Card.Title>{ myUser.name }</Card.Title>
                 <Card.Text>
-                  My total score: { myUser.totalScore }
+                  { myUser.email }
                 </Card.Text>
                 <Link to="/dashboard">
                   <Button variant="primary">Check your rank</Button>
