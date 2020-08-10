@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams, Redirect, Link } from 'react-router-dom';
+import { useParams, Redirect, Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Jumbotron, Button, Form, Table, Spinner } from 'react-bootstrap';
 import MessageBox from '../MessageBox';
@@ -15,6 +15,8 @@ const QuestionForm = () => {
   const { questions, isQuestionReady } = useSelector(state => state.question);
   const question = questions.find(que => que._id === questionId);
   const loading = useSelector(state => state.loading.show);
+  const messageBoxVariant = useSelector(state => state.messageBox.variant);
+  const history = useHistory();
 
   const handleAnswerChange = (event, option) => {
     dispatch(changeUsersAnswer(question._id, option, event.target.checked));
@@ -38,11 +40,18 @@ const QuestionForm = () => {
     }
   };
 
+  const onMessageBoxClose = () => {
+    console.log(`MessageBoxVariant: `, messageBoxVariant);
+    if (messageBoxVariant.toString().trim() === 'success') {
+      history.push(`/questions`);
+    }
+  };
+
   if (isQuestionReady) {
     return (
       <SecureComponent component={
         <div>
-          <MessageBox />
+          <MessageBox onClose={onMessageBoxClose} />
           <Prompt questionId={questionId} />
           <Jumbotron className="questionJumbotron">
             <h1>Question</h1>
