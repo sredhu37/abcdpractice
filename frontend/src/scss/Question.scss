@@ -18,6 +18,10 @@
     background-image: url("../static/card-bg.png");
     background-size: contain;
     background-repeat: no-repeat;
+
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 .questionJumbotron {
@@ -30,5 +34,5 @@
 }
 
 .correctAnswerRow {
-    background: #50E570;
+    background: #218838;
 }

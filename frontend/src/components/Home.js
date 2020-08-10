@@ -52,16 +52,13 @@ const Home = (props) => {
                         To login, you need to have a gmail account.
                       </li>
                       <li>
-                        You can click on the <b>Question</b> tab to attempt today's questions.
+                        You can click on the <b>Questions</b> tab to attempt today's questions.
                       </li>
                       <li>
                         For every correct answer, you get 1 point. No negative marking.
                       </li>
                       <li>
-                        <b>Dashboard</b> tab means Leader's dashboard. You can check your current rank there.
-                      </li>
-                      <li>
-                        To go to your <b>Profile</b> page, click on your Photo on the top right corner.
+                        <b>Dashboard</b> will show the top scorers' list. You can check your current rank there.
                       </li>
                     </ul>
                   </Card.Body>

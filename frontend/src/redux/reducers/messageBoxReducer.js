@@ -16,7 +16,10 @@ const messageBoxReducer = (state = initialState, action) => {
         variant: action.payload.variant
       };
     case MESSAGE_BOX_HIDE:
-      return initialState;
+      return {
+        ...state,
+        show: false
+      };
     default:
       return state;
   }

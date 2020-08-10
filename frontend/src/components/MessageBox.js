@@ -3,7 +3,7 @@ import { Modal, Button, Container, Row, Col } from "react-bootstrap";
 import { hideMessageBox } from "../redux/actions/messageBoxAction";
 import { useSelector, useDispatch } from 'react-redux';
 
-const MessageBox = () => {
+const MessageBox = ({ onClose = null }) => {
   const dispatch = useDispatch();
 
   const message = useSelector(state => state.messageBox.text);
@@ -25,6 +25,7 @@ const MessageBox = () => {
             aria-labelledby="contained-modal-title-vcenter"
             centered
             backdrop="static"
+            onExited={onClose}
           >
             <Modal.Header closeButton>
               <Modal.Title>Result</Modal.Title>
