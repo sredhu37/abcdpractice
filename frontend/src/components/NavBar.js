@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Navbar, Nav, Form, Image, Button, Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -11,6 +11,7 @@ const NavBar = () => {
   const isLoggedIn = useSelector(state => state.user.isLoggedIn);
   const myUser = useSelector(state => state.user.myUser);
   const loading = useSelector(state => state.loading.show);
+  const [ expandedNavBar, setExpandedNavBar ] = useState(false);
 
   const handleLogout = async (event) => {
     event.preventDefault();
@@ -29,7 +30,12 @@ const NavBar = () => {
 
   if(isLoggedIn) {
     return (
-      <Navbar className="color-navbar" expand="lg">
+      <Navbar
+        className="color-navbar"
+        expand="lg"
+        expanded={expandedNavBar}
+        onClick={() => {setExpandedNavBar(!expandedNavBar)}}
+      >
         <Link to="/">
           <Navbar.Brand>
             <Image
