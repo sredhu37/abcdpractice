@@ -21,8 +21,8 @@ const Home = (props) => {
     <div>
       <Container>
         <Row>
-          <Col xs={1} sm={3} />
-          <Col xs={10} sm={6}>
+          <Col xs={1} />
+          <Col xs={10}>
             <Accordion defaultActiveKey="0" className="homeAccordian">
               <Card>
                 <Accordion.Toggle as={Card.Header} eventKey="0" className='accordian'>
@@ -49,10 +49,10 @@ const Home = (props) => {
                   <Card.Body>
                     <ul>
                       <li>
-                        To login, you need to have a gmail account.
+                        To login, all you need is a Gmail account.
                       </li>
                       <li>
-                        You can click on the <b>Questions</b> tab to attempt today's questions.
+                        You can click on the <b>Questions</b> tab to attempt questions for the day.
                       </li>
                       <li>
                         For every correct answer, you get 1 point. No negative marking.
@@ -73,16 +73,13 @@ const Home = (props) => {
                     Please reach out to us at <b><i>abcdpractice1234@gmail.com</i></b> in any of the following cases:
                     <ul>
                       <li>
-                        You have good interesting problems you want on this app.
+                        You have good interesting problems that you want to be featured on this app.
                       </li>
                       <li>
                         You want a new feature to be added here.
                       </li>
                       <li>
                         There is a bug in this app.
-                      </li>
-                      <li>
-                        You have any other good idea that can be implemented.
                       </li>
                       <li>
                         Or just to say Hi!
@@ -103,7 +100,7 @@ const Home = (props) => {
               </Card>
             </Accordion>
           </Col>
-          <Col xs={1} sm={3} />
+          <Col xs={1} />
         </Row>
       </Container>
     </div>
