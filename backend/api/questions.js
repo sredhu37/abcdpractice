@@ -177,7 +177,8 @@ questionsRouter.get('/', verifyAuthToken, async (req, res) => {
         logger.info('Sending already asked questions: ', modifiedAskedQuestions);
         res.send(modifiedAskedQuestions);
       } else {
-        const questionsAttemptedIdList = user.questionsAttempted.map((que) => que._id);
+        const questionsAttemptedList = user.questionsAttempted.filter((que) => que.state.toString().trim() !== 'UNATTEMPTED');
+        const questionsAttemptedIdList = questionsAttemptedList.map((que) => que._id);
 
         const notAskedQuestions = await QuestionModel.find({
           class: className,
