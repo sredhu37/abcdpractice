@@ -180,14 +180,14 @@ questionsRouter.get('/', verifyAuthToken, async (req, res) => {
         const questionsAttemptedList = user.questionsAttempted.filter((que) => que.state.toString().trim() !== 'UNATTEMPTED');
         const questionsAttemptedIdList = questionsAttemptedList.map((que) => que._id);
 
-        const notAskedQuestions = await QuestionModel.find({
+        const unattemptedQuestions = await QuestionModel.find({
           class: className,
           subject,
           chapter,
           _id: { $nin: questionsAttemptedIdList },
         }, '_id problemStatement options').limit(5);
 
-        const todaysAskedQuestions = notAskedQuestions.map((que) => ({
+        const todaysAskedQuestions = unattemptedQuestions.map((que) => ({
           _id: que._id,
           optionsSelected: {
             a: false,
@@ -205,13 +205,13 @@ questionsRouter.get('/', verifyAuthToken, async (req, res) => {
             ...todaysAskedQuestions,
           ],
         });
-        logger.info('Sending new questions: ', notAskedQuestions);
+        logger.info('Sending new questions: ', unattemptedQuestions);
 
-        const modifiedNotAskedQuestions = notAskedQuestions.map((que) => ({
+        const modifiedUnattemptedQuestions = unattemptedQuestions.map((que) => ({
           ...que._doc,
           state: 'UNATTEMPTED',
         }));
-        res.send(modifiedNotAskedQuestions);
+        res.send(modifiedUnattemptedQuestions);
       }
     } else {
       res.sendStatus(400); // Bad request
