@@ -1,5 +1,5 @@
 const classes = [
-  {
+  /* {
     name: '1',
     subjects: [
       {
@@ -461,7 +461,7 @@ const classes = [
         ]
       }
     ]
-  },
+  }, */
   {
     name: '7',
     subjects: [
@@ -1026,7 +1026,7 @@ const classes = [
       }
     ]
   },
-  {
+  /* {
     name: '11',
     subjects: [
       {
@@ -1411,7 +1411,7 @@ const classes = [
         ]
       }
     ]
-  },
+  }, */
 ];
 
 export default classes;
