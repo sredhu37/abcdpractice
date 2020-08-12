@@ -1,13 +1,50 @@
 node {
   try {
-    stage('stageName') {
-      checkout scm
-      sh 'printenv'
-    }
+    // init()
+    deployApp()
   } catch (err) {
     echo "Error: ${err}"
   } finally {
     // Cleanup workspace after build completion
     cleanWs(notFailBuild: true)
+  }
+}
+
+def init() {
+  stage('Init') {
+    checkout scm
+    sh 'printenv'
+    echo "Branch name: ${env.BRANCH_NAME}"
+  }
+}
+
+def deployApp() {
+  stage('Deploy') {
+    def deployBranch = env.BRANCH_TO_DEPLOY ?: env.BRANCH_NAME;
+    echo "Deploying branch ${deployBranch}"
+
+    // dir('/home/ubuntu/abcdpractice/abcdpractice') {
+    //   // Pull latest code from the branch
+    //   sh """
+    //     git checkout ${deployBranch}
+    //     git pull
+    //   """
+
+    //   // Get the screen
+    //   def screenNameOutput = sh (returnStdout: true, script: "screen -ls | grep abcdpractice")
+    //   if (screenNameOutput.trim()) {
+    //     echo "Screen name: ${screenNameOutput}"
+    //   }
+
+    //   // // Close the screen
+    //   // sh """
+    //   //   screen -XS 20411 quit
+    //   // """
+
+    //   // sh """
+    //   //   cd frontend
+    //   //   npm run build
+    //   // """
+    // }
   }
 }
