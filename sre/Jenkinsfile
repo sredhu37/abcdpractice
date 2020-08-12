@@ -1,5 +1,13 @@
 node {
-  stage('stageName') {
-    echo "Hello"
+  try {
+    stage('stageName') {
+      checkout scm
+      sh 'git branch'
+    }
+  } catch (err) {
+    echo "Error: ${err}"
+  } finally {
+    // Cleanup workspace after build completion
+    cleanWs(notFailBuild: true)
   }
 }
