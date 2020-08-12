@@ -2,7 +2,7 @@ node {
   try {
     stage('stageName') {
       checkout scm
-      sh 'git branch'
+      sh 'printenv'
     }
   } catch (err) {
     echo "Error: ${err}"
