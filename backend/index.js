@@ -58,14 +58,6 @@ if (MONGO_URI && (MONGO_URI !== 'undefined')) {
 }
 
 // routes begin here
-app.get('/', (req, res) => {
-  if (process.env.NODE_ENV === 'PROD') {
-    res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
-  } else { // DEV environment
-    res.json({ msg: 'DEV Environment: Backend seems to be running fine. Yay!' });
-  }
-});
-
 app.get('/logs', (req, res) => {
   const logFilePath = path.join(__dirname, './logs/app.log');
   const stat = fs.statSync(logFilePath);
@@ -78,6 +70,14 @@ app.get('/logs', (req, res) => {
   const readStream = fs.createReadStream(logFilePath);
   // We replaced all the event handlers with a simple call to readStream.pipe()
   readStream.pipe(res);
+});
+
+app.get('/*', (req, res) => {
+  if (process.env.NODE_ENV === 'PROD') {
+    res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
+  } else { // DEV environment
+    res.json({ msg: 'DEV Environment: Backend seems to be running fine. Yay!' });
+  }
 });
 
 // routes end here
