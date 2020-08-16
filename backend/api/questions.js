@@ -1,5 +1,4 @@
 const express = require('express');
-const moment = require('moment');
 
 const questionsRouter = express.Router();
 const logger = require('../utils/logger');
@@ -7,13 +6,6 @@ const { QuestionModel } = require('../models/question');
 const { verifyAuthToken } = require('../utils/verifyToken');
 const { UserModel } = require('../models/user');
 const utils = require('../utils/commonMethods');
-
-const DATE_FORMAT = 'YYYY-MM-DD';
-
-// If no date is passed, then return today's date
-const getDate = (date = '') => (utils.exists(date)
-  ? moment(date).format(DATE_FORMAT)
-  : moment().format(DATE_FORMAT));
 
 const createNewQuestionsArr = (body) => body.questions.map((que) => ({
   ...que,
@@ -46,7 +38,6 @@ const getUpdatedQuestionObject = (question, usersAnswer) => {
     _id: question._id,
     optionsSelected: usersAnswer,
     state,
-    dateAsked: getDate(),
   };
 };
 
@@ -147,72 +138,55 @@ questionsRouter.get('/', verifyAuthToken, async (req, res) => {
 
   try {
     if (utils.exists(userId) && utils.exists(className) && utils.exists(subject) && utils.exists(chapter)) {
-      const user = await UserModel.findById(userId).populate('questionsAttempted');
+      const user = await UserModel.findById(userId);
 
-      const todaysDate = getDate();
-      const todaysQuestions = user.questionsAttempted.filter((que) => getDate(que.dateAsked) === todaysDate);
-
-      const todaysQuestionsAttemptedIdList = todaysQuestions.map((que) => que._id);
-      const askedQuestions = await QuestionModel.find({
+      const questions = await QuestionModel.find({
         class: className,
         subject,
         chapter,
-        _id: { $in: todaysQuestionsAttemptedIdList },
       }, '_id problemStatement options answer');
 
-      if (askedQuestions.length) {
-        const modifiedAskedQuestions = askedQuestions.map((que) => {
-          const userCurrentQue = todaysQuestions.find((askedQue) => askedQue._id.toString().trim() === que._id.toString().trim());
-          const modifiedQuestion = {
-            ...que._doc,
-            state: userCurrentQue.state,
-          };
+      const newQuestions = [];
+
+      const modifiedQuestions = questions.map((que) => {
+        const userCurrentQue = user.questionsAttempted.find((askedQue) => askedQue._id.toString().trim() === que._id.toString().trim());
+        const modifiedQuestion = { ...que._doc };
+
+        if (userCurrentQue) {
+          // asked que
+          modifiedQuestion.state = userCurrentQue.state;
 
           if (userCurrentQue.state !== 'ANSWER_VIEWED' && userCurrentQue.state !== 'CORRECT') {
             delete modifiedQuestion.answer;
           }
-
-          return modifiedQuestion;
-        });
-        logger.info('Sending already asked questions: ', modifiedAskedQuestions);
-        res.send(modifiedAskedQuestions);
-      } else {
-        const questionsAttemptedList = user.questionsAttempted.filter((que) => que.state.toString().trim() !== 'UNATTEMPTED');
-        const questionsAttemptedIdList = questionsAttemptedList.map((que) => que._id);
-
-        const unattemptedQuestions = await QuestionModel.find({
-          class: className,
-          subject,
-          chapter,
-          _id: { $nin: questionsAttemptedIdList },
-        }, '_id problemStatement options').limit(5);
-
-        const todaysAskedQuestions = unattemptedQuestions.map((que) => ({
-          _id: que._id,
-          optionsSelected: {
+        } else {
+          // not asked que
+          modifiedQuestion.optionsSelected = {
             a: false,
             b: false,
             c: false,
             d: false,
-          },
-          state: 'UNATTEMPTED',
-          dateAsked: getDate(),
-        }));
+          };
+          modifiedQuestion.state = 'UNATTEMPTED';
 
+          newQuestions.push(modifiedQuestion);
+        }
+
+        return modifiedQuestion;
+      });
+
+      // Add newQuestions to questionsAttempted list in user table
+      if (newQuestions.length) {
         await UserModel.findOneAndUpdate({ _id: userId }, {
           questionsAttempted: [
             ...user.questionsAttempted,
-            ...todaysAskedQuestions,
+            ...newQuestions,
           ],
         });
-        logger.info('Sending new questions: ', unattemptedQuestions);
-
-        const modifiedUnattemptedQuestions = unattemptedQuestions.map((que) => ({
-          ...que._doc,
-          state: 'UNATTEMPTED',
-        }));
-        res.send(modifiedUnattemptedQuestions);
       }
+
+      logger.info('Sending questions: ', modifiedQuestions);
+      res.send(modifiedQuestions);
     } else {
       res.sendStatus(400); // Bad request
     }
