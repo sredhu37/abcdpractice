@@ -48,7 +48,7 @@ usersRouter.get('/profile', verifyAuthToken, async (req, res) => {
 usersRouter.get('/leaders', verifyAuthToken, async (req, res) => {
   try {
     const top10 = await UserModel
-      .find({}, 'email totalScore pictureUrl name')
+      .find({ role: 'USER' }, 'email totalScore pictureUrl name')
       .sort({ totalScore: 'desc' })
       .limit(10);
 
