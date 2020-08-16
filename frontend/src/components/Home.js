@@ -31,9 +31,9 @@ const Home = (props) => {
                 <Accordion.Collapse eventKey="0">
                   <Card.Body>
                     <p>
-                      We believe that improving oneself is a continuous process.
-                      Hence, we have come up with a simple concept to improve one's problem solving skill.
-                      That is, just solve <b>FIVE QUESTIONS PER DAY</b>.
+                      As Richard Marcinko once said: <i>The more you sweat in training, the less you bleed in combat</i>.
+                      Similarly, the more you practice solving problems on a daily basis, the less tensed you are going to be in the exam time.
+                      So, we provide you with a platform where you can practive solving problems related to NCERT chapters in a fun way.
                     </p>
                     <p>
                       By following this principle, you will not feel overwhelmed and you will learn something new everyday.
@@ -52,7 +52,7 @@ const Home = (props) => {
                         To login, all you need is a Gmail account.
                       </li>
                       <li>
-                        You can click on the <b>Questions</b> tab to attempt questions for the day.
+                        You can click on the <b>Questions</b> tab to attempt the questions.
                       </li>
                       <li>
                         For every correct answer, you get 1 point. No negative marking.
