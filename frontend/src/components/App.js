@@ -8,7 +8,6 @@ import Home from './Home';
 import Dashboard from './Dashboard';
 import UploadQuestions from './UploadQuestions';
 import Profile from './Profile';
-import Unauthorized from './Unauthorized';
 
 const App = () => {
   axios.defaults.withCredentials = true;
@@ -32,9 +31,6 @@ const App = () => {
           </Route>
           <Route path="/upload-questions">
             <UploadQuestions />
-          </Route>
-          <Route path="/unauthorized">
-            <Unauthorized />
           </Route>
           <Route path="/" exact>
             <Home />

@@ -3,7 +3,6 @@ import { Container, Row, Col, Nav, Tab, Button, Form, FormControl, InputGroup } 
 import { useSelector, useDispatch } from 'react-redux';
 import MessageBox from './MessageBox';
 import SecureComponent from './SecureComponent';
-import AdminComponent from './AdminComponent';
 import Prompt from './UploadQuestionsHelperComponents/Prompt';
 
 import {
@@ -180,35 +179,33 @@ const UploadQuestions = () => {
 
   return(
     <SecureComponent component={
-      <AdminComponent component={
-        <div>
-          <Prompt />
-          <MessageBox />
-          <Container fluid className="tabContainer">
-            <Tab.Container
-              id="left-tabs-example"
-              activeKey={activeTab}
-              onSelect={(k) => dispatch(setActiveTab(k))}
-            >
-              <Row>
-                <Col sm={3}>
-                  <Nav variant="pills" className="flex-column">
-                    {getNavItems()}
-                  </Nav>
-                </Col>
-                <Col sm={9}>
-                  <Tab.Content>
-                    {getTabPanes()}
-                    <Button variant="secondary" onClick={handleAddNextQuestion}>Add next question</Button>
-                    <Button variant="danger" onClick={handleDeleteLastQuestion}>Delete last question</Button>
-                    <Button variant="success" onClick={handleDoneWithQuestions}>Done</Button>
-                  </Tab.Content>
-                </Col>
-              </Row>
-            </Tab.Container>
-          </Container>
-        </div>
-      } />
+      <div>
+        <Prompt />
+        <MessageBox />
+        <Container fluid className="tabContainer">
+          <Tab.Container
+            id="left-tabs-example"
+            activeKey={activeTab}
+            onSelect={(k) => dispatch(setActiveTab(k))}
+          >
+            <Row>
+              <Col sm={3}>
+                <Nav variant="pills" className="flex-column">
+                  {getNavItems()}
+                </Nav>
+              </Col>
+              <Col sm={9}>
+                <Tab.Content>
+                  {getTabPanes()}
+                  <Button variant="secondary" onClick={handleAddNextQuestion}>Add next question</Button>
+                  <Button variant="danger" onClick={handleDeleteLastQuestion}>Delete last question</Button>
+                  <Button variant="success" onClick={handleDoneWithQuestions}>Done</Button>
+                </Tab.Content>
+              </Col>
+            </Row>
+          </Tab.Container>
+        </Container>
+      </div>
     } />
   );
 };
