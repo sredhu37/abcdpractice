@@ -50,7 +50,14 @@ const NavBar = () => {
           <Nav className="mr-auto">
             <Nav.Link as={Link} to='/questions'><span className="color-nav">Questions</span></Nav.Link>
             <Nav.Link as={Link} to='/dashboard'><span className="color-nav">Dashboard</span></Nav.Link>
-            <Nav.Link as={Link} to='/upload-questions'><span className="color-nav">Upload Questions</span></Nav.Link>
+            {
+              myUser.role === 'ADMIN' ?
+                <Nav.Link as={Link} to='/upload-questions'>
+                  <span className="color-nav">Upload Questions</span>
+                </Nav.Link>
+              :
+                ''
+            }
           </Nav>
           <Form inline>
             <Nav className="mr-auto">
