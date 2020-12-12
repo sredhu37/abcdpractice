@@ -37,7 +37,7 @@ if (
 ) {
   const otherObj = {
     HOST: process.env.HOST || 'http://127.0.0.1',
-    PORT: process.env.PORT || 3000,
+    PORT: process.env.PORT || 4000,
     CLIENT_URL: process.env.CLIENT_URL,
     NODE_ENV: process.env.NODE_ENV,
   };

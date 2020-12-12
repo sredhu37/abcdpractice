@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-config
+data:
+  host: "http://www.abcdpractice.com"
+  port: "4000"
+  client-url: "http://www.abcdpractice.com"
+  node-env: "PROD"

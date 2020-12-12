@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: sunnyredhu/abcd-backend:latest
+        ports:
+        - name: backend-port
+          hostPort: 4000
+          containerPort: 4000
+        env:
+        - name: HOST
+          valueFrom:
+            configMapKeyRef:
+              name: backend-config
+              key: host
+        - name: PORT
+          valueFrom:
+            configMapKeyRef:
+              name: backend-config
+              key: port
+        - name: CLIENT_URL
+          valueFrom:
+            configMapKeyRef:
+              name: backend-config
+              key: client-url
+        - name: NODE_ENV
+          valueFrom:
+            configMapKeyRef:
+              name: backend-config
+              key: node-env
+        - name: MONGO_URI
+          valueFrom:
+            secretKeyRef:
+              name: backend-secret
+              key: mongo-uri
+        - name: GOOGLE_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: backend-secret
+              key: google-client-id
+        - name: GOOGLE_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: backend-secret
+              key: google-client-secret
+        - name: GOOGLE_REDIRECT_URI
+          valueFrom:
+            secretKeyRef:
+              name: backend-secret
+              key: google-redirect-uri
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: backend-service
+spec:
+  selector:
+    app: backend  # Pod selector label
+  type: NodePort
+  ports:
+    - name: http
+      port: 4000
+      targetPort: 4000
